@@ -47,20 +47,20 @@ def centralizar_janela(janela, largura, altura):
 
 
 def criar_tabela_fornecedores():
-    conn = conectar_banco()
-    if conn:
-        with conn:
-            cursor = conn.cursor()
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS Fornecedores (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nome TEXT NOT NULL UNIQUE,
-                    cnpj TEXT NOT NULL UNIQUE,
-                    telefone TEXT,
-                    email TEXT,
-                    endereco TEXT
-                )
-            ''')
+    conn = sqlite3.connect('estoque.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Fornecedores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            cnpj TEXT NOT NULL UNIQUE,
+            telefone TEXT,
+            email TEXT,
+            endereco TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 # Função para editar fornecedor
 
